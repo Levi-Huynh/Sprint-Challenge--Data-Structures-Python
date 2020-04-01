@@ -53,6 +53,7 @@ f = open('names_2.txt', 'r')
 names_2 = f.read().split("\n")  # List containing 10000 names
 f.close()
 
+
 duplicates = []  # Return the list of duplicates in this data structure
 
 
@@ -67,6 +68,7 @@ for name in names_2:  # for all names in file 2
         # if not a unique name & exists in myCache, append to the duplicates list
         duplicates.append(name)
 
+
 """
 # Replace the nested for loops below with your improvements
 for name_1 in names_1:
@@ -75,11 +77,25 @@ for name_1 in names_1:
             duplicates.append(name_1)
 """
 
-end_time = time.time()
-print(f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
-print(f"runtime: {end_time - start_time} seconds")
+#end_time = time.time()
+#print(f"{len(duplicates)} duplicates:\n\n{', '.join(duplicates)}\n\n")
+#print(f"runtime: {end_time - start_time} seconds")
 
 # ---------- Stretch Goal -----------
 # Python has built-in tools that allow for a very efficient approach to this problem
 # What's the best time you can accomplish?  Thare are no restrictions on techniques or data
 # structures, but you may not import any additional libraries that you did not write yourself.
+# .58 seconds
+#
+
+# Intersection, &
+# The resulting set has elements that are common to both source sets.
+# An element is in the result if it is in one set and the other.
+start_time = time.time()
+# find only the unique values of name, combine,
+duplicates1 = set(names_1) & set(names_2)
+
+end_time = time.time()
+print(f"{len(duplicates1)} duplicates:\n\n{', '.join(duplicates1)}\n\n")
+print("len", len(duplicates1))
+print(f"runtime: {end_time - start_time} seconds")
