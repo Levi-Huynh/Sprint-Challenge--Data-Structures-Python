@@ -67,12 +67,74 @@ class RingBuffer:
 # ----------------Stretch Goal-------------------
 
 
+"""
+but the reason that is super important and matters for you as developers is 
+because changing a pointer (like head) is an O(1) operation and changing the 
+data at the front of an array/list is technically an O(n) operation.
+
+.insert: You can pick where the value will be added to the list. 
+You can only add one value to a list at a time. Each value you 
+insert to a list is considered one element.
+
+.append: You cannot pick where the value will be added to the
+
+ list (it will be added as the last value). You can add one or more values to a list at a time. Each value added to a list (in a single .append statement) 
+will all be considered one element.
+
+Advantage of lists: built in list methods!
+"""
+
+
 class ArrayRingBuffer:
     def __init__(self, capacity):
-        pass
+        self.capacity = capacity
+        self.current = 0
+        self.storage = [None] * capacity
 
     def append(self, item):
-        pass
+        print("lenstart", len(self.storage))
+        if self.storage[-1] is None:
+            self.storage.pop(self.current)
+            self.storage.insert(self.current, item)
+            self.current += 1
+            if self.current == (self.capacity):
+                self.current = 0
+
+            print("added", len(self.storage), self.storage)
+        elif self.storage[-1] is not None:
+            print("capacity full. last elemt was", self.storage[-1])
+            if self.current == 0:
+                self.storage.pop(self.current)
+                self.storage.insert(self.current, item)
+            if self.current > 0:
+                self.storage.pop(self.current)
+                self.storage.insert(self.current, item)
+            self.current += 1
+            if self.current == self.capacity:
+                self.current = 0
 
     def get(self):
-        pass
+        myl = []
+
+        for elem in self.storage:
+            if elem != None:
+                myl.append(elem)
+        print("myl", myl)
+        return myl
+
+
+ht = ArrayRingBuffer(5)
+
+ht.append('a')
+ht.append('b')
+ht.append('c')
+ht.append('d')
+ht.get()
+ht.append('e')
+ht.get()
+ht.append('f')
+ht.get()
+ht.append('g')
+ht.append('h')
+ht.append('i')
+ht.get()
